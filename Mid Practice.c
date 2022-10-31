@@ -18,6 +18,6 @@ int main()
             p=i;
         }
     }
-        printf("%d %d",min,p);
+        printf("Menor valor: %d\nPosicao: %d\n",min,p);
     return 0;
 }
