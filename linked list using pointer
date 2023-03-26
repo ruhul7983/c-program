@@ -1,0 +1,199 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node *next;
+}*head;
+
+void createlist(int n);
+void display();
+void insertfirst(int x);
+void inserlast(int y);
+void insertnthpos(int data,int pos);
+void deletefirst();
+void deletelast();
+void deletenthpos(int dp);
+void findnode(int fn);
+void nodecount();
+
+
+int main()
+{
+    int n,x,y,data,pos,dp,fn;
+    printf("How much node you want: ");
+    scanf("%d",&n);
+    createlist(n);
+    display();
+//    printf("Enter a Data to add first of Linked list: ");
+//    scanf("%d",&x);
+//    insertfirst(x);
+//    display();
+//    printf("Enter data to add last: ");
+//    scanf("%d",&y);
+//    inserlast(y);
+//    display();
+//    printf("Enter data and position to insert Nth position: ");
+//    scanf("%d%d",&data,&pos);
+//    insertnthpos(data,pos);
+//    display();
+//    deletefirst();
+//    display();
+//    deletelast();
+//    display();
+//    printf("Enter a position to delete a node: ");
+//    scanf("%d",&dp);
+//    deletenthpos(dp);
+//    display();
+    printf("Enter a data to find: ");
+    scanf("%d",&fn);
+    findnode(fn);
+    nodecount();
+    return 0;
+}
+
+void createlist(int n)
+{
+    int data,i;
+    struct node *newnode,*temp;
+    head = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data: ");
+    scanf("%d",&data);
+    head->data = data;
+    head->next = NULL;
+    temp = head;
+    for(i=2;i<=n;i++){
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter data: ");
+        scanf("%d",&data);
+        newnode->data = data;
+        newnode->next = NULL;
+        temp->next = newnode;
+        temp=temp->next;
+    }
+
+}
+
+void display()
+{
+    struct node *temp;
+    temp = head;
+    while(temp!=NULL)
+    {
+        printf("%d->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL\n");
+}
+void insertfirst(int x)
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->next=head;
+    head = temp;
+}
+
+void inserlast(int y){
+    struct node *temp,*newNode;
+    newNode = (struct node*)malloc(sizeof(struct node));
+
+
+    newNode->data = y;
+    newNode->next = NULL;
+    temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+
+    }
+    temp->next = newNode;
+}
+
+void insertnthpos(int data,int pos)
+{
+    int i;
+    struct node *temp,*newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = data;
+    newnode->next = NULL;
+    temp=head;
+    for(i=1;i<pos;i++)
+    {
+        temp=temp->next;
+    }
+    newnode->next=temp->next;
+    temp->next=newnode;
+
+}
+
+void deletefirst()
+{
+    head=head->next;
+}
+
+
+void deletelast()
+{
+    struct node *temp,*temp2;
+    temp=head;
+    temp2=head;
+    while(temp->next!=NULL)
+    {
+        temp2=temp;
+        temp=temp->next;
+    }
+    temp2->next=NULL;
+    free(temp);
+}
+
+void deletenthpos(int dp)
+{
+    int i;
+    struct node *temp,*temp2;
+    temp=head;
+
+    if(dp==1){
+        head=head->next;
+    }
+    else{
+        for(i=1;i<dp-1;i++)
+        {
+            temp=temp->next;
+
+        }
+        temp2=temp->next;
+        temp->next = temp2->next;
+        free(temp2);
+    }
+}
+
+void findnode(int fn)
+{
+    int f=-1;
+    struct node *temp;
+    temp=head;
+    while(temp!=NULL){
+        if(temp->data==fn){
+            f++;
+        }
+        temp=temp->next;
+    }
+    if(f==-1){
+        printf("Not found\n");
+    }
+    else{
+        printf("Found\n");
+    }
+}
+void nodecount()
+{
+    int count=0;
+    struct node *temp;
+    temp=head;
+    while(temp!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    printf("Total node: %d",count);
+}
+//this code is written by MD Ruhul Amin. Student of Daffodil International University.
